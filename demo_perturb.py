@@ -36,6 +36,10 @@ torch.manual_seed(random_seed)
 
 is_plot = False
 
+slices_num = 10
+perturb_slices_num = 5
+scale = 0.0005
+
 
 def main():
     data_loader = DataLoader()
@@ -65,7 +69,7 @@ def main():
                                rootset_loader = data_loader.root_set_loader,
                                device = device)
     
-    # Compute original gradient
+    # Compute original gradients
     dy_dx = train_one_batch(model = model,
                      train_loader = data_loader.train_set_loader, 
                      device = device)
@@ -74,12 +78,13 @@ def main():
     # Slicing gradients and random perturbing 
     perturbed_dy_dx = noise(dy_dx = dy_dx, 
                             sensitivity = sensitivity,
-                            slices_num = 10,
-                            perturb_slices_num = 5,
-                            scale = 0.1)
+                            slices_num = slices_num,
+                            perturb_slices_num = perturb_slices_num,
+                            scale = scale)
     
     for layer in perturbed_dy_dx:
         print(layer.shape)
+        
     
     
 if __name__ == '__main__':

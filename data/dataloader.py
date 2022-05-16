@@ -12,11 +12,18 @@ from torchvision.datasets import MNIST
 DEFAULT_DATA_DIR = "./data/dataset"
 DEFAULT_NUM_WORKERS = 8
 
+batch_size = 32
+
+rootset_per_class = 5 
+rootset_size = 50
+
+
+
 
 def extract_root_set(
     dataset: Dataset,
-    sample_per_class: int = 5,
-    total_num_samples: int = 50,
+    sample_per_class: int = rootset_per_class,
+    total_num_samples: int = rootset_size,
     seed: int = None,
 ):
     num_classes = len(dataset.classes)
@@ -40,7 +47,7 @@ def extract_root_set(
 class MNISTDataLoader():
     def __init__(
         self,
-        batch_size: int = 32,
+        batch_size: int = batch_size,
         data_dir: str = DEFAULT_DATA_DIR,
         num_workers: int = DEFAULT_NUM_WORKERS,
         batch_sampler: Sampler = None,
@@ -124,7 +131,7 @@ class MNISTDataLoader():
 class CIFAR10DataLoader():
     def __init__(
         self,
-        batch_size: int = 32,
+        batch_size: int = batch_size,
         data_dir: str = DEFAULT_DATA_DIR,
         num_workers: int = DEFAULT_NUM_WORKERS,
         batch_sampler: Sampler = None,

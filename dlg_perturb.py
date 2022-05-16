@@ -33,9 +33,15 @@ random_seed = 1234
 torch.manual_seed(random_seed)
 iteration_steps = 300
 
+
 is_plot1 = False
 is_plot2 = False
 is_plot3 = True
+
+
+slices_num = 10
+perturb_slices_num = 5
+scale = 0.0005
 
 
 
@@ -87,7 +93,7 @@ def main():
     
     
     
-    # Compute original gradient 
+    # Compute original gradients
     dy_dx = torch.autograd.grad(outputs=loss, 
                                 inputs=model.parameters())
     original_dy_dx = list((_.detach().clone() for _ in dy_dx))
@@ -99,9 +105,9 @@ def main():
     # Slicing gradients and random perturbing 
     perturbed_gradients = noise(dy_dx = original_dy_dx, 
                                 sensitivity = sensitivity,
-                                slices_num = 10,
-                                perturb_slices_num = 5,
-                                scale = 0.1)
+                                slices_num = slices_num,
+                                perturb_slices_num = perturb_slices_num,
+                                scale = scale)
     
     original_dy_dx = []
     for layer in perturbed_gradients:
