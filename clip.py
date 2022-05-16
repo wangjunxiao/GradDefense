@@ -85,8 +85,4 @@ def noise(dy_dx: list,
     
     return gradients_perturbed
         
-        
-        
-      
-    
-    return
+  
