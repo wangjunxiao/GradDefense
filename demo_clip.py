@@ -36,7 +36,7 @@ def main():
 
     
 
-    # Compute gradients by samples
+    # Compute gradients by sample-wise
     dy_dx = train_by_gradient_clipping(model = model,
                                        train_loader = data_loader.train_set_loader, 
                                        device = device)
